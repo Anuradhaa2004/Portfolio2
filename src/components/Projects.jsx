@@ -3,6 +3,7 @@ import ProjectCard from "./ProjectCard";
 import "../css/Projects.css";
 import cleanSightImg from "../assets/CleanSight-Ai.png";
 import ecommerceImg from "../assets/E-commerce.jpg";
+import portfolioImg from "../assets/Portfolio.png";
 
 const PROJECTS = [
     {
@@ -26,24 +27,14 @@ const PROJECTS = [
         links: { demo: "www.ridhikaenterprises.in", github: "https://github.com/Anuradhaa2004/E-Commerce-backend" },
     },
     {
-        id: "glamify-ai",
-        title: "Glamify AI",
-        category: "AI / Beauty Tech",
-        status: "Coming Soon",
-        image: "/projects/glamify-ai.png",
-        description: "AI virtual makeup app letting users preview beauty products digitally before buying.",
-        tech: ["React", "Python", "AI", "CSS"],
-        links: { demo: null, github: "#" },
-    },
-    {
         id: "portfolio-website",
-        title: "Portfolio Website",
+        title: "Portfolio",
         category: "Personal Portfolio",
         status: "Live",
-        image: "/projects/portfolio-website.png",
+        image: portfolioImg,
         description: "Premium portfolio with smooth animations, responsive design, and modern UI/UX.",
         tech: ["React", "Vite", "CSS", "JavaScript"],
-        links: { demo: "#", github: "#" },
+        links: { demo: "https://portfolio2-psi-neon.vercel.app/", github: "https://github.com/Anuradhaa2004/Portfolio2" },
     },
 ];
 
