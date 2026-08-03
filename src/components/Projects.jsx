@@ -2,6 +2,7 @@ import React from "react";
 import ProjectCard from "./ProjectCard";
 import "../css/Projects.css";
 import cleanSightImg from "../assets/CleanSight-Ai.png";
+import ecommerceImg from "../assets/E-commerce.jpg";
 
 const PROJECTS = [
     {
@@ -16,13 +17,13 @@ const PROJECTS = [
     },
     {
         id: "fyntra",
-        title: "Fyntra E-Commerce",
+        title: "E-Commerce Store",
         category: "E-Commerce",
         status: "Live",
-        image: "/projects/fyntra.png",
-        description: "Full-stack e-commerce platform with authentication, cart, product filtering, and REST API.",
+        image: ecommerceImg,
+        description: "A Full-Stack E-Commerce Platform built with React.js and Node.js.",
         tech: ["React", "Node.js", "MongoDB", "Express.js"],
-        links: { demo: "#", github: "#" },
+        links: { demo: "www.ridhikaenterprises.in", github: "https://github.com/Anuradhaa2004/E-Commerce-backend" },
     },
     {
         id: "glamify-ai",
