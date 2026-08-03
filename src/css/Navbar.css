@@ -1,0 +1,552 @@
+/* ==========================================================================
+   Navbar.css
+   Premium, award-site-grade navigation bar.
+
+   Design tokens
+   -------------
+   Background : #08080A (near-black, warmer than pure black)
+   Surface    : rgba(255,255,255,0.04) glass panels
+   Accent A   : #6D5EF9 -> #B45CF6 (indigo -> violet gradient, primary)
+   Accent B   : #4CC9F0 (cool cyan, used only for the logo glow — the
+                signature detail that keeps the mark from feeling stock)
+   Text       : #F5F5F7 (primary), #A1A1AA (muted)
+   Type       : 'Inter' for UI text — a workhorse grotesque that disappears
+                into the content, set with deliberate tracking so it still
+                reads as considered rather than default.
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+    --nav-bg: #08080a;
+    --nav-surface: rgba(255, 255, 255, 0.045);
+    --nav-surface-strong: rgba(255, 255, 255, 0.07);
+    --nav-border: rgba(255, 255, 255, 0.09);
+    --nav-text: #f5f5f7;
+    --nav-text-muted: #a1a1aa;
+    --nav-accent-1: #6d5ef9;
+    --nav-accent-2: #b45cf6;
+    --nav-glow: #4cc9f0;
+    --nav-gradient: linear-gradient(120deg, var(--nav-accent-1), var(--nav-accent-2));
+    --nav-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+    --nav-radius: 14px;
+    --nav-transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --nav-transition-slow: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    --nav-height: 82px;
+    --nav-height-scrolled: 64px;
+}
+
+/* ==========================================================================
+   Base header shell
+   ========================================================================== */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition:
+        height var(--nav-transition-fast),
+        background-color var(--nav-transition-fast),
+        border-color var(--nav-transition-fast),
+        box-shadow var(--nav-transition-fast),
+        backdrop-filter var(--nav-transition-fast);
+    animation: navbar-slide-down 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.navbar--scrolled {
+    height: var(--nav-height-scrolled);
+    background: rgba(8, 8, 10, 0.62);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 1px solid var(--nav-border);
+    box-shadow: var(--nav-shadow);
+}
+
+@keyframes navbar-slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.navbar__inner {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 4vw, 48px);
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 24px;
+}
+
+/* ==========================================================================
+   Logo
+   ========================================================================== */
+
+.navbar__logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    outline-offset: 4px;
+    animation: fade-in 0.8s ease 0.15s both;
+}
+
+.navbar__logo-ring {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    background: radial-gradient(circle at 30% 30%, rgba(109, 94, 249, 0.18), rgba(255, 255, 255, 0.02));
+    transition:
+        transform var(--nav-transition-fast),
+        border-color var(--nav-transition-fast),
+        box-shadow var(--nav-transition-fast);
+}
+
+.navbar__logo-ring::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(76, 201, 240, 0.35), transparent 70%);
+    opacity: 0;
+    transition: opacity var(--nav-transition-fast);
+    z-index: -1;
+}
+
+.navbar__logo-text {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--nav-text);
+    transform: translateZ(0);
+}
+
+.navbar__logo:hover .navbar__logo-ring,
+.navbar__logo:focus-visible .navbar__logo-ring {
+    transform: rotate(360deg) scale(1.06);
+    border-color: rgba(180, 92, 246, 0.55);
+    box-shadow: 0 0 18px rgba(109, 94, 249, 0.35);
+}
+
+.navbar__logo:hover .navbar__logo-ring::before,
+.navbar__logo:focus-visible .navbar__logo-ring::before {
+    opacity: 1;
+}
+
+.navbar__logo-ring {
+    transition-duration: 0.6s;
+}
+
+/* ==========================================================================
+   Desktop nav links
+   ========================================================================== */
+
+.navbar__links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(20px, 2.4vw, 34px);
+    margin: 0;
+    padding: 0;
+    animation: fade-in 0.8s ease 0.25s both;
+}
+
+.navbar__link {
+    position: relative;
+    display: inline-block;
+    padding: 8px 2px;
+    color: var(--nav-text-muted);
+    text-decoration: none;
+    font-size: 14.5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: color var(--nav-transition-fast);
+}
+
+.navbar__link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1.5px;
+    background: var(--nav-gradient);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--nav-transition-slow);
+}
+
+.navbar__link:hover,
+.navbar__link:focus-visible {
+    color: var(--nav-text);
+}
+
+.navbar__link:hover::after,
+.navbar__link:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.navbar__link--active {
+    color: var(--nav-text);
+}
+
+.navbar__link--active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.navbar__link:focus-visible,
+.navbar__logo:focus-visible,
+.navbar__cta:focus-visible,
+.navbar__hamburger:focus-visible,
+.navbar__mobile-link:focus-visible,
+.navbar__mobile-cta:focus-visible {
+    outline: 2px solid var(--nav-accent-2);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   CTA — Resume button (glassmorphism)
+   ========================================================================== */
+
+.navbar__cta {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--nav-text);
+    text-decoration: none;
+    background: var(--nav-surface);
+    border: 1px solid var(--nav-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    transition:
+        transform var(--nav-transition-fast),
+        box-shadow var(--nav-transition-fast),
+        background var(--nav-transition-fast),
+        border-color var(--nav-transition-fast);
+    animation: fade-in 0.8s ease 0.35s both;
+}
+
+.navbar__cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--nav-gradient);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity var(--nav-transition-fast);
+}
+
+.navbar__cta:hover,
+.navbar__cta:focus-visible {
+    transform: translateY(-2px) scale(1.03);
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 10px 28px rgba(109, 94, 249, 0.35);
+}
+
+.navbar__cta:hover::before,
+.navbar__cta:focus-visible::before {
+    opacity: 0.18;
+}
+
+.navbar__cta:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.nav-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    transform: scale(0);
+    pointer-events: none;
+    animation: ripple-expand 0.6s ease-out forwards;
+}
+
+@keyframes ripple-expand {
+    to {
+        transform: scale(2.4);
+        opacity: 0;
+    }
+}
+
+/* ==========================================================================
+   Hamburger (mobile trigger)
+   ========================================================================== */
+
+.navbar__hamburger {
+    display: none;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--nav-border);
+    background: var(--nav-surface);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0;
+    transition: background var(--nav-transition-fast), border-color var(--nav-transition-fast);
+}
+
+.navbar__hamburger:hover {
+    background: var(--nav-surface-strong);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.navbar__hamburger-line {
+    width: 18px;
+    height: 1.5px;
+    background: var(--nav-text);
+    border-radius: 2px;
+    transition: transform var(--nav-transition-fast), opacity var(--nav-transition-fast);
+}
+
+.navbar__hamburger--active .navbar__hamburger-line:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+}
+
+.navbar__hamburger--active .navbar__hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.navbar__hamburger--active .navbar__hamburger-line:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ==========================================================================
+   Mobile overlay + slide-in panel
+   ========================================================================== */
+
+.navbar__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 7, 0.55);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--nav-transition-fast);
+    z-index: 999;
+}
+
+.navbar__overlay--visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.navbar__mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(78vw, 340px);
+    background: rgba(10, 10, 13, 0.85);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border-left: 1px solid var(--nav-border);
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%);
+    transition: transform var(--nav-transition-slow);
+    z-index: 1001;
+    padding: 110px 32px 40px;
+    overflow-y: auto;
+}
+
+.navbar__mobile-menu--open {
+    transform: translateX(0);
+}
+
+.navbar__mobile-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.navbar__mobile-item {
+    opacity: 0;
+    transform: translateX(24px);
+}
+
+.navbar__mobile-menu--open .navbar__mobile-item {
+    animation: mobile-item-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(0.15s + var(--stagger, 0s));
+}
+
+@keyframes mobile-item-in {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.navbar__mobile-link {
+    display: block;
+    padding: 14px 6px;
+    color: var(--nav-text-muted);
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: color var(--nav-transition-fast), padding-left var(--nav-transition-fast);
+}
+
+.navbar__mobile-link:hover,
+.navbar__mobile-link:focus-visible,
+.navbar__mobile-link--active {
+    color: var(--nav-text);
+    padding-left: 12px;
+}
+
+.navbar__mobile-link--active {
+    background: linear-gradient(90deg, rgba(109, 94, 249, 0.12), transparent);
+}
+
+.navbar__mobile-cta {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    margin-top: 22px;
+    text-align: center;
+    padding: 14px;
+    border-radius: 12px;
+    color: var(--nav-text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    background: var(--nav-gradient);
+    box-shadow: 0 10px 30px rgba(109, 94, 249, 0.35);
+    transition: transform var(--nav-transition-fast);
+}
+
+.navbar__mobile-cta:hover,
+.navbar__mobile-cta:focus-visible {
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* ==========================================================================
+   Shared keyframes
+   ========================================================================== */
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   Responsive breakpoints
+   ========================================================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .navbar__links {
+        gap: 16px;
+    }
+
+    .navbar__link {
+        font-size: 13.5px;
+    }
+
+    .navbar__inner {
+        gap: 16px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .navbar__inner {
+        grid-template-columns: auto 1fr auto;
+    }
+
+    .navbar__links {
+        display: none;
+    }
+
+    .navbar__cta {
+        display: none;
+    }
+
+    .navbar__hamburger {
+        display: inline-flex;
+    }
+
+    .navbar__inner {
+        padding: 0 20px;
+    }
+}
+
+@media (min-width: 769px) {
+
+    .navbar__overlay,
+    .navbar__mobile-menu {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .navbar,
+    .navbar__logo,
+    .navbar__links,
+    .navbar__cta,
+    .navbar__link::after,
+    .navbar__logo-ring,
+    .navbar__mobile-menu,
+    .navbar__mobile-item,
+    .navbar__mobile-cta,
+    .nav-ripple {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+    }
+}
