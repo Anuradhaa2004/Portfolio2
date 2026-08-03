@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Projects — Horizontal scroll, compact portrait cards
+   Projects — Clean grid layout
    ========================================================================== */
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap");
@@ -9,9 +9,9 @@
     position: relative;
     width: 100%;
     background: #050816;
-    padding: 90px 0 100px;
+    padding: 30px 0 100px;
     overflow: hidden;
-    scroll-margin-top: 70px;
+    scroll-margin-top: 75px;
     font-family: "Inter", system-ui, sans-serif;
     color: #f8fafc;
     box-sizing: border-box;
@@ -39,19 +39,18 @@
 /* ── Inner wrapper ───────────────────────────────────────────────────────── */
 .proj-inner {
     position: relative; z-index: 1;
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 0 clamp(20px, 4vw, 56px);
+    padding: 0 clamp(16px, 2.5vw, 32px);
 }
 
-/* ── Header row ──────────────────────────────────────────────────────────── */
+/* ── Header — centered ────────────────────────────────────────────────────── */
 .proj-header {
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 52px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 48px;
 }
 
 .proj-eyebrow {
@@ -59,7 +58,7 @@
     font-size: 11.5px; font-weight: 700;
     letter-spacing: 0.22em; text-transform: uppercase;
     color: #00e5ff;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
 }
 
 .proj-heading {
@@ -68,7 +67,7 @@
     font-weight: 800; line-height: 1.15;
     letter-spacing: -0.025em;
     color: #f8fafc;
-    margin: 0 0 10px;
+    margin: 0 0 16px;
 }
 .proj-heading__grad {
     background: linear-gradient(110deg, #8b5cf6, #00e5ff);
@@ -78,74 +77,22 @@
 .proj-sub {
     font-size: 15.5px; line-height: 1.7;
     color: #94a3b8; margin: 0;
-    max-width: 460px;
+    max-width: 520px;
 }
 
-/* arrow controls */
-.proj-controls {
-    display: flex;
-    gap: 10px;
-    flex-shrink: 0;
-    align-self: center;
+/* ── Grid ────────────────────────────────────────────────────────────────── */
+.proj-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
-.proj-arrow {
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: rgba(255,255,255,0.05);
-    color: #f8fafc;
-    font-size: 18px; line-height: 1;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
-}
-.proj-arrow:hover {
-    background: rgba(139,92,246,0.18);
-    border-color: rgba(139,92,246,0.55);
-    transform: scale(1.08);
-}
-.proj-arrow--dim { opacity: 0.3; cursor: not-allowed; }
-.proj-arrow--dim:hover { transform: none; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.15); }
-
-/* ── Scroll track container ──────────────────────────────────────────────── */
-.proj-track-wrap {
-    position: relative;
-}
-
-.proj-track {
-    display: flex;
-    gap: 22px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 14px;
-    /* hide scrollbar */
-    scrollbar-width: none;
-}
-.proj-track::-webkit-scrollbar { display: none; }
-
-.proj-track > div {
-    scroll-snap-align: start;
-    flex-shrink: 0;
-}
-
-/* edge fades */
-.proj-fade {
-    position: absolute;
-    top: 0; bottom: 14px;
-    width: 80px;
-    pointer-events: none;
-    z-index: 2;
-}
-.proj-fade--left  { left: 0;  background: linear-gradient(to right, #050816, transparent); }
-.proj-fade--right { right: 0; background: linear-gradient(to left,  #050816, transparent); }
 
 /* ==========================================================================
    PROJECT CARD — portrait style
    ========================================================================== */
 
 .pc-card {
-    width: 310px;
+    width: 100%;
     border-radius: 20px;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.09);
@@ -157,8 +104,8 @@
 }
 .pc-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(139,92,246,0.4);
-    box-shadow: 0 20px 48px rgba(0,0,0,0.5), 0 0 40px -12px rgba(139,92,246,0.35);
+    border-color: rgba(139,92,246,0.35);
+    box-shadow: 0 20px 48px rgba(0,0,0,0.4);
 }
 
 /* ── Image area ──────────────────────────────────────────────────────────── */
@@ -176,7 +123,7 @@
     object-fit: cover; display: block;
     transition: transform 0.5s ease;
 }
-.pc-card:hover .pc-img { transform: scale(1.05); }
+.pc-card:hover .pc-img { transform: scale(1.04); }
 
 /* project number — top right */
 .pc-num {
@@ -262,7 +209,7 @@
 }
 .pc-btn--demo:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(0,229,255,0.3);
+    box-shadow: 0 8px 22px rgba(0,229,255,0.25);
 }
 .pc-btn--gh {
     background: rgba(255,255,255,0.06);
@@ -283,8 +230,10 @@
 }
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
-@media (max-width: 600px) {
-    .proj-header { flex-direction: column; align-items: flex-start; }
-    .pc-card { width: 270px; }
-    .proj-section { padding: 70px 0 80px; }
+@media (max-width: 1100px) {
+    .proj-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 580px) {
+    .proj-grid { grid-template-columns: 1fr; }
+    .proj-section { padding: 60px 0 80px; }
 }

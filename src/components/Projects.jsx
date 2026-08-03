@@ -1,17 +1,18 @@
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
 import ProjectCard from "./ProjectCard";
 import "../css/Projects.css";
+import cleanSightImg from "../assets/CleanSight-Ai.png";
 
 const PROJECTS = [
     {
         id: "healthbuddy-ai",
-        title: "HealthBuddy AI",
-        category: "AI / Healthcare",
+        title: "CleanSight AI",
+        category: "Cleanliness",
         status: "Live",
-        image: "/projects/healthbuddy-ai.png",
-        description: "AI-powered healthcare chatbot for symptom guidance, disease awareness, and bilingual support.",
-        tech: ["React", "Python", "Flask", "Groq API"],
-        links: { demo: "#", github: "#" },
+        image: cleanSightImg,
+        description: "To bridge the gap between authorities and citizens.",
+        tech: ["MERN-Stack"],
+        links: { demo: "https://clean-sight-ai-frontend.vercel.app/", github: "https://github.com/Anuradhaa2004/CleanSight-AI-frontend" },
     },
     {
         id: "fyntra",
@@ -46,30 +47,6 @@ const PROJECTS = [
 ];
 
 export default function Projects() {
-    const trackRef = useRef(null);
-    const [canLeft,  setCanLeft]  = useState(false);
-    const [canRight, setCanRight] = useState(true);
-
-    const updateArrows = () => {
-        const t = trackRef.current;
-        if (!t) return;
-        setCanLeft(t.scrollLeft > 8);
-        setCanRight(t.scrollLeft < t.scrollWidth - t.clientWidth - 8);
-    };
-
-    useEffect(() => {
-        const t = trackRef.current;
-        if (!t) return;
-        updateArrows();
-        t.addEventListener("scroll", updateArrows, { passive: true });
-        return () => t.removeEventListener("scroll", updateArrows);
-    }, []);
-
-    const scroll = (dir) => {
-        const t = trackRef.current;
-        if (t) t.scrollBy({ left: dir * 360, behavior: "smooth" });
-    };
-
     return (
         <section id="projects" className="proj-section" aria-labelledby="proj-heading">
             <div className="proj-bg-blob proj-bg-blob--a" aria-hidden="true" />
@@ -86,44 +63,15 @@ export default function Projects() {
                         A collection of real-world projects showcasing my frontend
                         development, AI/ML, and problem-solving skills.
                     </p>
-
-                    {/* arrow controls */}
-                    <div className="proj-controls" aria-label="Scroll projects">
-                        <button
-                            className={`proj-arrow ${!canLeft ? "proj-arrow--dim" : ""}`}
-                            onClick={() => scroll(-1)}
-                            aria-label="Scroll left"
-                            disabled={!canLeft}
-                        >
-                            ←
-                        </button>
-                        <button
-                            className={`proj-arrow ${!canRight ? "proj-arrow--dim" : ""}`}
-                            onClick={() => scroll(1)}
-                            aria-label="Scroll right"
-                            disabled={!canRight}
-                        >
-                            →
-                        </button>
-                    </div>
                 </div>
 
-                {/* ── horizontal scroll track ───────────────── */}
-                <div className="proj-track-wrap">
-                    <div
-                        ref={trackRef}
-                        className="proj-track"
-                        role="list"
-                    >
-                        {PROJECTS.map((p, i) => (
-                            <div key={p.id} role="listitem">
-                                <ProjectCard project={p} index={i} />
-                            </div>
-                        ))}
-                    </div>
-                    {/* fade edges */}
-                    <div className="proj-fade proj-fade--left"  aria-hidden="true" />
-                    <div className="proj-fade proj-fade--right" aria-hidden="true" />
+                {/* ── grid of cards ───────────────────────── */}
+                <div className="proj-grid" role="list">
+                    {PROJECTS.map((p, i) => (
+                        <div key={p.id} role="listitem">
+                            <ProjectCard project={p} index={i} />
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>
