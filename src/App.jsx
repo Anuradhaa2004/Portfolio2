@@ -4,6 +4,7 @@ import resumeUrl from './assets/RESUME.pdf'
 import About from './components/About'
 import Skill from './components/Skill'
 import Projects from './components/Projects'
+import Achievements from './components/Achievement'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <About />
       <Skill />
       <Projects />
+      <Achievements />
     </main>
   )
 }
