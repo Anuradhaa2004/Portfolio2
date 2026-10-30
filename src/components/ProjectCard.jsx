@@ -16,12 +16,14 @@ export default function ProjectCard({ project, index }) {
 
             {/* ── image ─────────────────────────────────── */}
             <div className="pc-img-wrap">
-                <img
-                    src={image}
-                    alt={`${title} screenshot`}
-                    className="pc-img"
-                    loading="lazy"
-                />
+                {image && (
+                    <img
+                        src={image}
+                        alt={`${title} screenshot`}
+                        className="pc-img"
+                        loading="lazy"
+                    />
+                )}
                 {/* project number overlay */}
                 <span className="pc-num" aria-hidden="true">{num}</span>
                 {/* category tag overlay */}

@@ -4,6 +4,7 @@ import "../css/Projects.css";
 import cleanSightImg from "../assets/CleanSight-Ai.png";
 import ecommerceImg from "../assets/E-commerce.jpg";
 import portfolioImg from "../assets/Portfolio.png";
+import resQAlertImg from "../assets/ResQAlert.png";
 
 const PROJECTS = [
     {
@@ -35,6 +36,16 @@ const PROJECTS = [
         description: "Premium portfolio with smooth animations, responsive design, and modern UI/UX.",
         tech: ["React", "Vite", "CSS", "JavaScript"],
         links: { demo: "https://portfolio2-psi-neon.vercel.app/", github: "https://github.com/Anuradhaa2004/Portfolio2" },
+    },
+    {
+        id: "resqalert",
+        title: "ResQAlert",
+        category: "Personal Safety",
+        status: "Live",
+        image: resQAlertImg,
+        description: "A smart emergency response & personal safety web application!",
+        tech: ["React", "Vite", "Firebase", "Web Speech API", "Service Workers", "Leaflet"],
+        links: { demo: "https://res-q-alert-nu.vercel.app/", github: "https://github.com/Anuradhaa2004/ResQAlert" },
     },
 ];
 
