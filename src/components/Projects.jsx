@@ -40,7 +40,7 @@ const PROJECTS = [
     {
         id: "resqalert",
         title: "ResQAlert",
-        category: "Personal Safety",
+        category: "Safety",
         status: "Live",
         image: resQAlertImg,
         description: "A smart emergency response & personal safety web application!",

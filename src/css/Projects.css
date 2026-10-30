@@ -83,7 +83,7 @@
 /* ── Grid ────────────────────────────────────────────────────────────────── */
 .proj-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 20px;
 }
 
@@ -93,6 +93,7 @@
 
 .pc-card {
     width: 100%;
+    min-width: 0;
     border-radius: 20px;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.09);
